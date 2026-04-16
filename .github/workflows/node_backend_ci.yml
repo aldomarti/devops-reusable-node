@@ -1,0 +1,36 @@
+name: 'Reusable CI Workflow for Node Npm'
+on:
+ workflow_call:
+    inputs:
+      application:
+        required: true
+        type: string
+      nodeVersion:
+        required: true
+        type: string
+      WorkingDirectory:
+        required: true
+        type: string
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.nodeVersion }}
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ${{ inputs.WorkingDirectory }}
+
+      - name: Run tests
+        run: npm test
+        working-directory: ${{ inputs.WorkingDirectory }}
+
+      - name: Build application
+        run: npm run build
+        working-directory: ${{ inputs.WorkingDirectory }}
