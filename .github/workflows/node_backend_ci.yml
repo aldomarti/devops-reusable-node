@@ -1,8 +1,11 @@
-name: 'Reusable CI Workflow for Node Npm'
+name: 'Reusable CI Workflow    Node Npm'
 on:
  workflow_call:
     inputs:
       application:
+        required: true
+        type: string
+      repository_name:
         required: true
         type: string
       nodeVersion:
@@ -21,8 +24,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        # with:
-        #   fetch-depth: 1
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -40,3 +41,9 @@ jobs:
       - name: Build application
         run: npm run build
         working-directory: ${{ inputs.WorkingDirectory }}
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5 # Official unified action
+        env:
+          SONAR_TOKEN: e2d82d80bed1e2f3a9d3ad9104e39404f6796e19
+      
