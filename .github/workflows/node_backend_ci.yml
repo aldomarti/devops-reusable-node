@@ -43,7 +43,7 @@ jobs:
         working-directory: ${{ inputs.WorkingDirectory }}
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5 # Official unified action
+        uses: SonarSource/sonarqube-scan-action@v6 # Official unified action
         env:
           SONAR_TOKEN: e2d82d80bed1e2f3a9d3ad9104e39404f6796e19
       
